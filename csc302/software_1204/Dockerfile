@@ -1,1 +1,14 @@
-for 12.04 Ubuntu DirtyCOW
+FROM linhbngo/ubuntu:12.04
+
+RUN apt-get update
+RUN apt-get install -y wget sudo
+RUN wget --no-check-certificate https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh &&
+    bash Miniconda3-latest-Linux-x86_64.sh -b -p /opt/miniconda &&
+    echo "PATH=/opt/miniconda/bin:$PATH" >> /etc/environment &&
+    source /etc/environment &&
+    pip install jupyter &&
+RUN useradd -m -s /bin/bash seed &&
+    echo "seed:dees" | chpasswd
+    
+ENTRYPOINT [“figlet”,”-f”, “script”]
+  
