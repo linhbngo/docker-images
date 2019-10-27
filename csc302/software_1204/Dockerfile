@@ -8,6 +8,7 @@ RUN wget --no-check-certificate https://repo.anaconda.com/miniconda/Miniconda3-l
     && . /etc/environment \
     && pip install jupyter
 RUN useradd -m -s /bin/bash seed \
-    && echo "seed:dees" | chpasswd
+    && echo "seed:dees" | chpasswd \
+    && usermod -a -G sudo seed
 
 CMD ["su", "-", "seed", "-c", "/opt/miniconda/bin/jupyter notebook --NotebookApp.token='' --ip=0.0.0.0 --no-browser"]
